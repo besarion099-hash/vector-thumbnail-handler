@@ -9,6 +9,8 @@ enum class VecFormat {
     DosEps,  // EPS mit Binaerheader (eingebettete TIFF/WMF-Vorschau)
     PsText,  // %!PS ohne Binaerheader (EPS/PS/altes .ai)
     Dxf,     // AutoCAD DXF (Text)
+    Cdr,     // CorelDRAW (RIFF- oder ZIP-Container mit Vorschau-Bitmap)
+    Xcs,     // xTool Studio Projekt (JSON mit eingebettetem Cover-PNG)
 };
 
 // Erkennt das Format am Inhalt (nicht am Dateinamen).

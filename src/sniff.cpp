@@ -39,12 +39,42 @@ VecFormat SniffFormat(const std::vector<char>& data)
     if (u[0] == 0xC5 && u[1] == 0xD0 && u[2] == 0xD3 && u[3] == 0xC6)
         return VecFormat::DosEps;
 
+    // CorelDRAW, alte Variante: RIFF....CDR*
+    if (u[0] == 'R' && u[1] == 'I' && u[2] == 'F' && u[3] == 'F' &&
+        data.size() >= 12 && u[8] == 'C' && u[9] == 'D' && u[10] == 'R')
+        return VecFormat::Cdr;
+
+    // CorelDRAW, neue Variante: ZIP-Container. Wie bei ODF steht ein
+    // "mimetype"-Eintrag ganz vorne; sein Wert identifiziert CorelDRAW.
+    // (Die metadata/-Eintraege liegen zu weit hinten fuer eine Kopf-Suche.)
+    if (u[0] == 'P' && u[1] == 'K' && u[2] == 0x03 && u[3] == 0x04 &&
+        (ContainsInHead(data, "corel.draw", 256) ||
+         ContainsInHead(data, "metadata/thumbnails/", 1u << 20) ||
+         ContainsInHead(data, "content/root.dat", 1u << 20)))
+        return VecFormat::Cdr;
+
     // %PDF darf ein paar Junk-Bytes davor haben
     if (ContainsInHead(data, "%PDF-", 1024))
         return VecFormat::Pdf;
 
     if (StartsWith(data, "%!PS") || ContainsInHead(data, "%!PS-Adobe", 256))
         return VecFormat::PsText;
+
+    // xTool Studio: JSON (beginnt mit '{') mit eingebettetem "cover"-Feld
+    {
+        size_t i = 0;
+        while (i < data.size() && i < 8 &&
+               (data[i] == ' ' || data[i] == '\t' || data[i] == '\r' ||
+                data[i] == '\n' || static_cast<unsigned char>(data[i]) == 0xEF ||
+                static_cast<unsigned char>(data[i]) == 0xBB ||
+                static_cast<unsigned char>(data[i]) == 0xBF))
+            ++i;
+        // "cover" steht in .xcs oft erst nach dem grossen canvas-Array ->
+        // gesamten Inhalt durchsuchen (nur wenn es ueberhaupt JSON ist).
+        if (i < data.size() && data[i] == '{' &&
+            ContainsInHead(data, "\"cover\"", data.size()))
+            return VecFormat::Xcs;
+    }
 
     // SVG: <svg irgendwo im Kopf (nach XML-Deklaration/Kommentaren/BOM)
     if (ContainsInHead(data, "<svg", 4096))

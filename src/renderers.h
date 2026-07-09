@@ -9,6 +9,8 @@ HRESULT RenderSvgToHBitmap(const char* data, size_t len, UINT cx, HBITMAP* phbmp
 HRESULT RenderPdfToHBitmap(const unsigned char* data, size_t len, UINT cx, HBITMAP* phbmp);
 HRESULT RenderEpsToHBitmap(const unsigned char* data, size_t len, UINT cx, HBITMAP* phbmp);
 HRESULT RenderDxfToHBitmap(const char* data, size_t len, UINT cx, HBITMAP* phbmp);
+HRESULT RenderCdrToHBitmap(const unsigned char* data, size_t len, UINT cx, HBITMAP* phbmp);
+HRESULT RenderXcsToHBitmap(const char* data, size_t len, UINT cx, HBITMAP* phbmp);
 
 // Eingebettete %AI7_Thumbnail-Vorschau aus .ai-Dateien (Fallback, wenn die
 // PDF-Seite leer ist, z. B. bei CorelDRAW-Exporten oder "ohne PDF-Inhalt").

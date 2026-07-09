@@ -32,7 +32,8 @@ if not exist build\miniz.obj (
 set CXXFLAGS=/nologo /std:c++17 /O2 /W4 /EHsc /MT /DUNICODE /D_UNICODE /DNOMINMAX %VTH_EXTRA%
 set SOURCES=src\dllmain.cpp src\thumbnail_provider.cpp src\render_dispatch.cpp ^
     src\sniff.cpp src\render_common.cpp src\render_svg.cpp src\render_pdf.cpp ^
-    src\render_eps.cpp src\render_dxf.cpp src\render_aithumb.cpp
+    src\render_eps.cpp src\render_dxf.cpp src\render_aithumb.cpp ^
+    src\render_cdr.cpp src\render_xcs.cpp src\xcs_cover.cpp
 set LIBS=build\miniz.obj shlwapi.lib windowscodecs.lib ole32.lib advapi32.lib ^
     shell32.lib user32.lib gdi32.lib d2d1.lib shcore.lib windowsapp.lib runtimeobject.lib
 
@@ -45,6 +46,7 @@ echo === Baue vecthumb-test.exe ===
 cl %CXXFLAGS% /Fobuild\ test\main.cpp src\render_dispatch.cpp src\sniff.cpp ^
    src\render_common.cpp src\render_svg.cpp src\render_pdf.cpp ^
    src\render_eps.cpp src\render_dxf.cpp src\render_aithumb.cpp ^
+   src\render_cdr.cpp src\render_xcs.cpp src\xcs_cover.cpp ^
    /Fe:build\vecthumb-test.exe /link %LIBS%
 if errorlevel 1 exit /b 1
 

@@ -1,6 +1,6 @@
 # Vector Thumbnail Handler
 
-**Windows-Explorer-Miniaturansichten für Vektordateien: SVG, SVGZ, AI, EPS, PS und DXF**
+**Windows-Explorer-Miniaturansichten für Vektordateien: SVG, SVGZ, AI, EPS, PS, DXF, PDF, XCS und CDR**
 
 🇬🇧 [English version → README.md](README.md)
 
@@ -20,6 +20,11 @@ Der Windows Explorer zeigt für die meisten Vektorformate nur ein leeres Blatt (
 | **EPS** | Eingebettete TIFF/WMF-Vorschau (DOS-EPS) oder EPSI-Vorschau; sonst Ghostscript |
 | **PS** (PostScript) | Mit Ghostscript gerendert |
 | **DXF** | Von einem eingebauten 2D-Zeichner: Linien, Polylinien (inkl. Bogensegmente), Kreise, Bögen, Ellipsen, Splines und Blockreferenzen |
+| **PDF** | Mit der Windows-PDF-Engine gerendert |
+| **XCS** (xTool Studio) | Extrahiert das Vorschaubild, das xTool in die Projektdatei einbettet |
+| **CDR** (CorelDRAW) | Extrahiert die eingebettete Vorschau-Bitmap — sowohl neuer ZIP-Container als auch älteres RIFF-Format |
+
+> **DWG** (AutoCAD) folgt in einer späteren Version. Moderne DWG verstecken ihre Vorschau in einem komprimierten Abschnitt, der einen eigenen Decoder braucht.
 
 > **Ghostscript ist optional.** SVG, SVGZ, DXF, die meisten AI und EPS-mit-Vorschau funktionieren sofort. Nur `.ps` sowie `.ai`/`.eps` *ohne* eingebettete Vorschau brauchen [Ghostscript](https://ghostscript.com/releases/gsdnld.html) (kostenlos). Ist es installiert, findet und nutzt der Handler es automatisch.
 
@@ -58,10 +63,11 @@ Das erzeugt `build\VectorThumbnailHandler.dll` sowie zwei Testwerkzeuge:
 |---|---|
 | CLSID | `{26CB6E50-6E37-40FD-BAC2-D8130CF9E549}` |
 | Schnittstellen | `IInitializeWithStream`, `IThumbnailProvider` |
+| Erweiterungen | `.svg .svgz .ai .eps .ps .dxf .pdf .xcs .cdr` |
 | Registrierung | `HKLM\Software\Classes\<ext>\ShellEx\{e357fccd-…}` je Erweiterung, zusätzlich ProgId und `SystemFileAssociations` |
 | Formaterkennung | Inhalts-Sniffer (Magic Bytes), nicht die Dateiendung |
 | Bildpfad | Direct2D + Windows Imaging Component (WIC), Fant-Skalierung |
-| Mitgeliefert | [miniz](https://github.com/richgel999/miniz) für SVGZ-Entpacken (MIT, siehe `src/miniz-LICENSE.txt`) |
+| Mitgeliefert | [miniz](https://github.com/richgel999/miniz) für SVGZ-Entpacken und CDR/ZIP-Extraktion (MIT, siehe `src/miniz-LICENSE.txt`) |
 
 ### Zwei Dinge, die Windows 11 schwer gemacht hat (hart erarbeitet)
 

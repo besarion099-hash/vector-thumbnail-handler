@@ -1,6 +1,6 @@
 # Vector Thumbnail Handler
 
-**Windows Explorer thumbnails for vector files: SVG, SVGZ, AI, EPS, PS and DXF**
+**Windows Explorer thumbnails for vector files: SVG, SVGZ, AI, EPS, PS, DXF, PDF, XCS and CDR**
 
 🇩🇪 [Deutsche Version → README.de.md](README.de.md)
 
@@ -20,6 +20,11 @@ Windows Explorer shows only a blank page (or the associated app's generic icon) 
 | **EPS** | Embedded TIFF/WMF preview (DOS‑EPS) or EPSI preview; otherwise Ghostscript |
 | **PS** (PostScript) | Rendered with Ghostscript |
 | **DXF** | Drawn by a built-in 2D renderer: lines, polylines (incl. bulge arcs), circles, arcs, ellipses, splines and block references |
+| **PDF** | Rendered with the Windows PDF engine |
+| **XCS** (xTool Studio) | Extracts the preview image xTool embeds in the project file |
+| **CDR** (CorelDRAW) | Extracts the embedded preview bitmap — both the modern ZIP container and the older RIFF format |
+
+> **DWG** (AutoCAD) is planned for a future release. Modern DWG hides its preview in a compressed section that needs a dedicated decoder.
 
 > **Ghostscript is optional.** SVG, SVGZ, DXF, most AI and EPS-with-preview work out of the box. Only `.ps`, and `.ai`/`.eps` files that contain *no* embedded preview, need [Ghostscript](https://ghostscript.com/releases/gsdnld.html) (free). If it is installed, the handler finds and uses it automatically.
 
@@ -58,10 +63,11 @@ This produces `build\VectorThumbnailHandler.dll` plus two test tools:
 |---|---|
 | CLSID | `{26CB6E50-6E37-40FD-BAC2-D8130CF9E549}` |
 | Interfaces | `IInitializeWithStream`, `IThumbnailProvider` |
+| Extensions | `.svg .svgz .ai .eps .ps .dxf .pdf .xcs .cdr` |
 | Registration | `HKLM\Software\Classes\<ext>\ShellEx\{e357fccd-…}` for each extension, plus its ProgId and `SystemFileAssociations` |
 | Format detection | Content sniffer (magic bytes), not the file extension |
 | Image path | Direct2D + Windows Imaging Component (WIC), Fant scaling |
-| Bundled | [miniz](https://github.com/richgel999/miniz) for SVGZ gunzip (MIT, see `src/miniz-LICENSE.txt`) |
+| Bundled | [miniz](https://github.com/richgel999/miniz) for SVGZ gunzip and CDR/ZIP extraction (MIT, see `src/miniz-LICENSE.txt`) |
 
 ### Two things Windows 11 made hard (learned the hard way)
 
