@@ -34,11 +34,11 @@ static const wchar_t kClsidString[] = L"{26CB6E50-6E37-40FD-BAC2-D8130CF9E549}";
 // Kategorie "Thumbnail Provider" (fest von Windows vorgegeben).
 static const wchar_t kThumbnailCategory[] = L"{E357FCCD-A995-4576-B01F-234630154E96}";
 static const wchar_t kDescription[] =
-    L"Vector Thumbnail Handler (SVG/AI/EPS/DXF/PDF/XCS/CDR)";
+    L"Vector Thumbnail Handler (SVG/AI/EPS/DXF/PDF/XCS/CDR/LightBurn)";
 
 static const wchar_t* kExtensions[] = {
     L".svg", L".svgz", L".ai", L".eps", L".ps", L".dxf",
-    L".pdf", L".xcs", L".cdr",
+    L".pdf", L".xcs", L".cdr", L".lbrn", L".lbrn2",
 };
 
 namespace {

@@ -76,6 +76,11 @@ VecFormat SniffFormat(const std::vector<char>& data)
             return VecFormat::Xcs;
     }
 
+    // LightBurn: XML mit <LightBurnProject-Wurzel (vor der SVG-Pruefung,
+    // da beides XML ist)
+    if (ContainsInHead(data, "<LightBurnProject", 4096))
+        return VecFormat::Lbrn;
+
     // SVG: <svg irgendwo im Kopf (nach XML-Deklaration/Kommentaren/BOM)
     if (ContainsInHead(data, "<svg", 4096))
         return VecFormat::Svg;

@@ -11,6 +11,7 @@ enum class VecFormat {
     Dxf,     // AutoCAD DXF (Text)
     Cdr,     // CorelDRAW (RIFF- oder ZIP-Container mit Vorschau-Bitmap)
     Xcs,     // xTool Studio Projekt (JSON mit eingebettetem Cover-PNG)
+    Lbrn,    // LightBurn Projekt (XML mit eingebettetem Thumbnail-PNG)
 };
 
 // Erkennt das Format am Inhalt (nicht am Dateinamen).

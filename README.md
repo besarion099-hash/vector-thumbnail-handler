@@ -1,6 +1,6 @@
 # Vector Thumbnail Handler
 
-**Windows Explorer thumbnails for vector files: SVG, SVGZ, AI, EPS, PS, DXF, PDF, XCS and CDR**
+**Windows Explorer thumbnails for vector files: SVG, SVGZ, AI, EPS, PS, DXF, PDF, XCS, CDR and LightBurn**
 
 🇩🇪 [Deutsche Version → README.de.md](README.de.md)
 
@@ -23,6 +23,7 @@ Windows Explorer shows only a blank page (or the associated app's generic icon) 
 | **PDF** | Rendered with the Windows PDF engine |
 | **XCS** (xTool Studio) | Extracts the preview image xTool embeds in the project file |
 | **CDR** (CorelDRAW) | Extracts the embedded preview bitmap — both the modern ZIP container and the older RIFF format |
+| **LightBurn** (`.lbrn`, `.lbrn2`) | Extracts the preview image LightBurn embeds in the project |
 
 > **DWG** (AutoCAD) is planned for a future release. Modern DWG hides its preview in a compressed section that needs a dedicated decoder.
 
@@ -63,7 +64,7 @@ This produces `build\VectorThumbnailHandler.dll` plus two test tools:
 |---|---|
 | CLSID | `{26CB6E50-6E37-40FD-BAC2-D8130CF9E549}` |
 | Interfaces | `IInitializeWithStream`, `IThumbnailProvider` |
-| Extensions | `.svg .svgz .ai .eps .ps .dxf .pdf .xcs .cdr` |
+| Extensions | `.svg .svgz .ai .eps .ps .dxf .pdf .xcs .cdr .lbrn .lbrn2` |
 | Registration | `HKLM\Software\Classes\<ext>\ShellEx\{e357fccd-…}` for each extension, plus its ProgId and `SystemFileAssociations` |
 | Format detection | Content sniffer (magic bytes), not the file extension |
 | Image path | Direct2D + Windows Imaging Component (WIC), Fant scaling |
