@@ -71,6 +71,10 @@ HRESULT RenderVectorThumbnail(const unsigned char* data, size_t len, UINT cx,
             return RenderXcsToHBitmap(buf.data(), buf.size(), cx, phbmp);
         case VecFormat::Lbrn:
             return RenderLbrnToHBitmap(buf.data(), buf.size(), cx, phbmp);
+        case VecFormat::Xs:
+            return RenderXsToHBitmap(
+                reinterpret_cast<const unsigned char*>(buf.data()), buf.size(),
+                cx, phbmp);
         default:
             return E_FAIL;
     }

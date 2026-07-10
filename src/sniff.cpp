@@ -44,14 +44,18 @@ VecFormat SniffFormat(const std::vector<char>& data)
         data.size() >= 12 && u[8] == 'C' && u[9] == 'D' && u[10] == 'R')
         return VecFormat::Cdr;
 
-    // CorelDRAW, neue Variante: ZIP-Container. Wie bei ODF steht ein
-    // "mimetype"-Eintrag ganz vorne; sein Wert identifiziert CorelDRAW.
-    // (Die metadata/-Eintraege liegen zu weit hinten fuer eine Kopf-Suche.)
-    if (u[0] == 'P' && u[1] == 'K' && u[2] == 0x03 && u[3] == 0x04 &&
-        (ContainsInHead(data, "corel.draw", 256) ||
-         ContainsInHead(data, "metadata/thumbnails/", 1u << 20) ||
-         ContainsInHead(data, "content/root.dat", 1u << 20)))
-        return VecFormat::Cdr;
+    // ZIP-Container? (kann CorelDRAW oder xTool Studio v2 sein)
+    if (u[0] == 'P' && u[1] == 'K' && u[2] == 0x03 && u[3] == 0x04) {
+        // xTool Studio v2 (.xs): erster Eintrag ist meta/persistence-meta.json.
+        if (ContainsInHead(data, "persistence-meta", 4096) ||
+            ContainsInHead(data, "project-cover.png", 1u << 20))
+            return VecFormat::Xs;
+        // CorelDRAW: wie bei ODF steht ein "mimetype"-Eintrag ganz vorne.
+        if (ContainsInHead(data, "corel.draw", 256) ||
+            ContainsInHead(data, "metadata/thumbnails/", 1u << 20) ||
+            ContainsInHead(data, "content/root.dat", 1u << 20))
+            return VecFormat::Cdr;
+    }
 
     // %PDF darf ein paar Junk-Bytes davor haben
     if (ContainsInHead(data, "%PDF-", 1024))

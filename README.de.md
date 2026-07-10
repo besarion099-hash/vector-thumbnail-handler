@@ -1,6 +1,6 @@
 # Vector Thumbnail Handler
 
-**Windows-Explorer-Miniaturansichten für Vektordateien: SVG, SVGZ, AI, EPS, PS, DXF, PDF, XCS, CDR und LightBurn**
+**Windows-Explorer-Miniaturansichten für Vektordateien: SVG, SVGZ, AI, EPS, PS, DXF, PDF, XCS, XS, CDR und LightBurn**
 
 🇬🇧 [English version → README.md](README.md)
 
@@ -21,7 +21,7 @@ Der Windows Explorer zeigt für die meisten Vektorformate nur ein leeres Blatt (
 | **PS** (PostScript) | Mit Ghostscript gerendert |
 | **DXF** | Von einem eingebauten 2D-Zeichner: Linien, Polylinien (inkl. Bogensegmente), Kreise, Bögen, Ellipsen, Splines und Blockreferenzen |
 | **PDF** | Mit der Windows-PDF-Engine gerendert |
-| **XCS** (xTool Studio) | Extrahiert das Vorschaubild, das xTool in die Projektdatei einbettet |
+| **XCS / XS** (xTool Studio) | Extrahiert das Vorschaubild, das xTool in die Projektdatei einbettet — das JSON-Format `.xcs` und das neuere ZIP-basierte `.xs` |
 | **CDR** (CorelDRAW) | Extrahiert die eingebettete Vorschau-Bitmap — sowohl neuer ZIP-Container als auch älteres RIFF-Format |
 | **LightBurn** (`.lbrn`, `.lbrn2`) | Extrahiert das Vorschaubild, das LightBurn in die Projektdatei einbettet |
 
@@ -64,7 +64,7 @@ Das erzeugt `build\VectorThumbnailHandler.dll` sowie zwei Testwerkzeuge:
 |---|---|
 | CLSID | `{26CB6E50-6E37-40FD-BAC2-D8130CF9E549}` |
 | Schnittstellen | `IInitializeWithStream`, `IThumbnailProvider` |
-| Erweiterungen | `.svg .svgz .ai .eps .ps .dxf .pdf .xcs .cdr .lbrn .lbrn2` |
+| Erweiterungen | `.svg .svgz .ai .eps .ps .dxf .pdf .xcs .xs .cdr .lbrn .lbrn2` |
 | Registrierung | `HKLM\Software\Classes\<ext>\ShellEx\{e357fccd-…}` je Erweiterung, zusätzlich ProgId und `SystemFileAssociations` |
 | Formaterkennung | Inhalts-Sniffer (Magic Bytes), nicht die Dateiendung |
 | Bildpfad | Direct2D + Windows Imaging Component (WIC), Fant-Skalierung |

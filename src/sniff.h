@@ -12,6 +12,7 @@ enum class VecFormat {
     Cdr,     // CorelDRAW (RIFF- oder ZIP-Container mit Vorschau-Bitmap)
     Xcs,     // xTool Studio Projekt (JSON mit eingebettetem Cover-PNG)
     Lbrn,    // LightBurn Projekt (XML mit eingebettetem Thumbnail-PNG)
+    Xs,      // xTool Studio v2 (ZIP-Container mit resources/project-cover.png)
 };
 
 // Erkennt das Format am Inhalt (nicht am Dateinamen).
